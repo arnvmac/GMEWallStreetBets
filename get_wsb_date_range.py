@@ -7,7 +7,7 @@ import numpy
 import matplotlib.pyplot as plt
 #commiting to GitHub
 ##nltk.download('vader_lexicon')
-dataset = pd.read_csv('Data/archive_1/reddit_wsb.csv')
+dataset = pd.read_csv('Data/archive_5/reddit_wsb_vtwo.csv')
 
 ## gives a vector of true/false where true is rows which are NA
 ## select rows in dataset where body is na and set it equal to ''
@@ -53,5 +53,3 @@ dataset['neutral_body_sentiment']    = dataset['body_sentiments'].apply(lambda x
 dataset['negative_body_sentiment']   = dataset['body_sentiments'].apply(lambda x: x['neg'])
 
 dataset.to_csv('Data/sentiments_reddit_posts.csv', index = False)
-plt.scatter('neutral_title_sentiment','positive_body_sentiment')
-plt.show()

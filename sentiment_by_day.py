@@ -34,3 +34,4 @@ for date in wsb_sentiments['date'].unique():
 	features_dataframe['date'].append(date)
 features_dataframe = pd.DataFrame(features_dataframe)
 features_dataframe.to_csv('Data/sentiment_by_day.csv', index = False)
+
