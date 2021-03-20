@@ -7,7 +7,7 @@ import numpy
 import matplotlib.pyplot as plt
 #commiting to GitHub
 ##nltk.download('vader_lexicon')
-dataset = pd.read_csv('Data/archive_5/reddit_wsb_vtwo.csv')
+dataset = pd.read_csv('Data/archive_6/updated_wsb_posts.csv')
 
 ## gives a vector of true/false where true is rows which are NA
 ## select rows in dataset where body is na and set it equal to ''
