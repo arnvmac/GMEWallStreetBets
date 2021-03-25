@@ -79,7 +79,7 @@ train_loader = DataLoader(train_data, shuffle=True, batch_size=batch_size, drop_
 lstm = LSTM(input_dim = 7, output_size = 1, hidden_dim = 10)
 loss_function = torch.nn.MSELoss(size_average=None, reduce=None, reduction='mean')
 optimizer = optim.Adam(lstm.parameters(), lr=0.0001)
-writer = SummaryWriter('runs/gme_experiment_3')
+writer = SummaryWriter('runs/gme_experiment_4')
 iteration = 0
 for epoch in range(200):
 	hidden = lstm.init_hidden(batch_size)
