@@ -2,7 +2,7 @@ import pandas as pd
 import pdb
 import numpy as np
 
-gme_stock = pd.read_csv('Data/archive_7/GME_stock_updatedmarch.csv')
+gme_stock = pd.read_csv('Data/archive_9/GME Updated.csv')
 gme_percentage_change = []
 for i in range(gme_stock.shape[0]-1):
 	close_price_today = gme_stock.loc[i, 'Close']
