@@ -7,9 +7,7 @@ import torch.optim as optim
 import torch.nn as nn
 from torch.utils.tensorboard import SummaryWriter
 import math
-torch.manual_seed(0)
-import random
-random.seed(0)
+
 device = torch.device('cpu')
 gme_prices_sentiments = pd.read_csv('Data/sentiment_price_each_day.csv')
 gme_prices_sentiments = gme_prices_sentiments.drop(0)
@@ -17,7 +15,7 @@ gme_prices_sentiments = gme_prices_sentiments.reset_index()
 gme_input_features = gme_prices_sentiments[['daily_average_title_positive_sentiment', 
                         'daily_average_title_negative_sentiment', 'daily_average_title_neutral_sentiment', 
                         'daily_average_body_positive_sentiment', 'daily_average_body_negative_sentiment',
-                        'daily_average_body_neutral_sentiment', 'volume_of_posts']]
+                        'daily_average_body_neutral_sentiment', 'volume_of_posts', 'Close']]
 ## subset to features we want to use to predict the outcome and the outcome column
 
 ## for loop where we loop through each day we want to predict
@@ -70,7 +68,9 @@ for i, row in gme_prices_sentiments.iterrows():
     # cant use the first x days beacuse we odnt have information
     if i < sequence_days-1:
         continue # skip to next iteration
-    output_labels.append(gme_prices_sentiments[['gme_percentage_change']].iloc[i].values[0])
+    try:
+        output_labels.append(gme_prices_sentiments[['gme_percentage_change']].iloc[i].values[0])
+    except: pdb.set_trace()
     # gather the relevant rows for the previous days
     sentiments_subset = gme_input_features.iloc[i-(sequence_days-1):i+1,:]
     input_sequences.append(sentiments_subset.values)
@@ -88,10 +88,10 @@ train_loader = DataLoader(train_data, shuffle=True, batch_size=batch_size, drop_
 valid_loader = DataLoader(valid_data, shuffle=True, batch_size=batch_size, drop_last=True)
 full_data_loader = DataLoader(full_data, shuffle=False, batch_size=1, drop_last=True)
 
-lstm = LSTM(input_dim = 7, output_size = 1, hidden_dim = 10)
+lstm = LSTM(input_dim = 8, output_size = 1, hidden_dim = 10)
 loss_function = torch.nn.MSELoss(size_average=None, reduce=None, reduction='mean')
 optimizer = optim.Adam(lstm.parameters(), lr=0.0001)
-writer = SummaryWriter('runs/gme_experiment_15')
+writer = SummaryWriter('runs/gme_close_and_sentiment')
 iteration = 0
 valid_checker = 0
 for epoch in range(200):
@@ -126,4 +126,4 @@ for i, data in enumerate(full_data_loader, 0):
     predicted_percent_change.append(outputs.item())
     print(str(outputs) + ' ' + str(labels))
 gme_prices_sentiments['predicted_percent_change'] = predicted_percent_change
-gme_prices_sentiments.to_csv('Data/predicted_percent_sentiment_by_day.csv', index = False)
+gme_prices_sentiments.to_csv('Data/predicted_close_and_sentiment.csv', index = False)

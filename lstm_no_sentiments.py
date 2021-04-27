@@ -88,7 +88,7 @@ full_data_loader = DataLoader(full_data, shuffle=False, batch_size=1, drop_last=
 lstm = LSTM(input_dim = 1, output_size = 1, hidden_dim = 10)
 loss_function = torch.nn.MSELoss(size_average=None, reduce=None, reduction='mean')
 optimizer = optim.Adam(lstm.parameters(), lr=0.0001)
-writer = SummaryWriter('runs/gme_experiment_close_only_2')
+writer = SummaryWriter('runs/gme_experiment_close_only_3')
 iteration = 0
 valid_checker = 0
 for epoch in range(200):
