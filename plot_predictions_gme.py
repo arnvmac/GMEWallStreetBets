@@ -10,6 +10,7 @@ import math
 
 gme_prices_both = pd.read_csv('Data/predicted_close_and_sentiment.csv')
 gme_prices_close = pd.read_csv('Data/predicted_percent_close_only_by_day.csv')
+gme_prices_sentiments = pd.read_csv('Data/predicted_percent_sentiment_by_day.csv')
 gme_prices_close = gme_prices_close.rename(columns={'predicted_percent_change': 'predicted_percent_change_close'})
 assert(all(gme_prices_both['Close'] == gme_prices_close['Close']))
 gme_prices_close_subset = gme_prices_close[['date', 'predicted_percent_change_close']]
