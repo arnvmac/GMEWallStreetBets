@@ -29,6 +29,6 @@ import matplotlib.pyplot as plt
 plt.plot('index', 'Close', data=gme_prices_both, marker='', label="Actual Close Price")
 plt.plot('index', 'predicted_new_price', data=gme_prices_both, marker='', label="Predicted Close Price with Sentiment and Close Price")
 plt.plot('index', 'predicted_new_price_close', data=gme_prices_both, marker='', label="Predicted Close Price with just Close Price")
-plt.axvline(x=29, color='r', linestyle='-') ## put the location where validation set begins
+plt.axvline(x=39, color='r', linestyle='-') ## put the location where validation set begins
 plt.legend()
 plt.show()
